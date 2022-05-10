@@ -1,0 +1,48 @@
+---
+apiVersion: deckhouse.io/v1
+kind: AWSInstanceClass
+metadata:
+  name: worker-m5-2xlarge
+spec:
+  diskSizeGb: 93
+  diskType: gp3
+  instanceType: m5.2xlarge
+  spot: true
+  additionalSecurityGroups:
+  - sg-xxx
+---
+apiVersion: deckhouse.io/v1
+kind: AWSInstanceClass
+metadata:
+  name: worker-m5a-2xlarge
+spec:
+  diskSizeGb: 93
+  diskType: gp3
+  instanceType: m5a.2xlarge
+  spot: true
+  additionalSecurityGroups:
+  - sg-xxx
+---
+apiVersion: deckhouse.io/v1
+kind: AWSInstanceClass
+metadata:
+  name: worker-r5-xlarge
+spec:
+  diskSizeGb: 93
+  diskType: gp3
+  instanceType: r5.xlarge
+  spot: true
+  additionalSecurityGroups:
+  - sg-xxx
+---
+apiVersion: deckhouse.io/v1
+kind: AWSInstanceClass
+metadata:
+  name: worker-r5a-xlarge
+spec:
+  diskSizeGb: 93
+  diskType: gp3
+  instanceType: r5a.xlarge
+  spot: true
+  additionalSecurityGroups:
+  - sg-xxx

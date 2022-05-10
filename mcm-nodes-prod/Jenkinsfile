@@ -1,0 +1,40 @@
+@Library('jenkins-devops@dev')_
+
+properties([
+  parameters([
+    choice(      name: 'TYPE',              choices: ['converge', 'dismiss'],
+                                            defaultValue: 'converge',              description: 'TYPE of run Deploy or Dismis packages'),
+    string(      name: 'WERF_VERSION',      defaultValue: '1.2 stable',            description: 'Werf version'),
+  ])
+])
+
+
+pipeline {
+  agent { label 'research' }
+
+  environment {
+    WERF_IMAGES_REPO        = "cr.yandex/xxx/mcm-nodes-prod"
+    WERF_STAGES_STORAGE     = "cr.yandex/xxx/mcm-nodes-prod/stages"
+    YC_AUTH                 = credentials('yandex_registry_key')
+    KUBECONFIG              = credentials('werf_kube_config')
+    WERF_KUBE_CONTEXT       = "production"
+    WERF_ENV                = "production"
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Deploy to production') {
+      when { anyOf { branch 'master'; } }
+      steps {
+        script {
+          functions.runWerf("${params.TYPE}","${params.WERF_VERSION}")
+        }
+      }
+    }
+  }
+}

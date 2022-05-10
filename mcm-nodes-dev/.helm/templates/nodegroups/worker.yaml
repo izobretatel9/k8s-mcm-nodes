@@ -1,0 +1,21 @@
+apiVersion: deckhouse.io/v1alpha2
+kind: NodeGroup
+metadata:
+  name: worker
+spec:
+  cloudInstances:
+    classReference:
+      kind: YandexInstanceClass
+      name: worker
+    maxPerZone: 50
+    minPerZone: 10
+    zones:
+    - ru-central1-c
+    standby: 0
+    standbyHolder:
+      notHeldResources:
+        cpu: 1000m
+        memory: 1500Mi
+  disruptions:
+    approvalMode: Automatic
+  nodeType: Cloud

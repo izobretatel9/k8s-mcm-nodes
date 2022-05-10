@@ -1,0 +1,10 @@
+apiVersion: deckhouse.io/v1alpha1
+kind: YandexInstanceClass
+metadata:
+  name: worker
+spec:
+  cores: 8
+  diskSizeGB: 93
+  diskType: network-ssd-nonreplicated
+  memory: 32768
+  platformID: standard-v3

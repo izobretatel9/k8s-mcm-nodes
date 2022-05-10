@@ -1,0 +1,23 @@
+apiVersion: deckhouse.io/v1alpha1
+kind: NodeGroup
+metadata:
+  name: worker-elasticsearch
+spec:
+  cloudInstances:
+    classReference:
+      kind: YandexInstanceClass
+      name: worker-elasticsearch
+    maxPerZone: 3
+    minPerZone: 3
+    zones:
+    - ru-central1-c
+  disruptions:
+    approvalMode: Automatic
+  nodeTemplate:
+    labels:
+      node-role/elasticsearch: ""
+    taints:
+    - effect: NoSchedule
+      key: dedicated
+      value: elasticsearch
+  nodeType: Cloud

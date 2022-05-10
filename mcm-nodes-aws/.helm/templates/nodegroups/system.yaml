@@ -1,0 +1,24 @@
+apiVersion: deckhouse.io/v1
+kind: NodeGroup
+metadata:
+  name: system
+spec:
+  cloudInstances:
+    classReference:
+      kind: AWSInstanceClass
+      name: system
+    maxPerZone: 1
+    minPerZone: 1
+    zones:
+    - eu-west-1a
+    - eu-west-1b
+  disruptions:
+    approvalMode: Automatic
+  nodeTemplate:
+    labels:
+      node-role.deckhouse.io/system: ""
+    taints:
+    - effect: NoExecute
+      key: dedicated.deckhouse.io
+      value: system
+  nodeType: CloudEphemeral

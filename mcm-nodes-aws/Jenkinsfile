@@ -1,0 +1,40 @@
+@Library('jenkins-devops@dev')_
+
+properties([
+  parameters([
+    choice(      name: 'TYPE',              choices: ['converge', 'dismiss'],
+                                            defaultValue: 'converge',              description: 'TYPE of run Deploy or Dismis packages'),
+    string(      name: 'SERVICE',           defaultValue: 'mcm-nodes',             description: 'Name of Service'),
+    string(      name: 'WERF_VERSION',      defaultValue: '1.2 stable',            description: 'Werf version'),
+  ])
+])
+
+pipeline {
+  agent { label 'research' }
+
+  environment {
+    WERF_IMAGES_REPO        = "xxx.amazonaws.com/${params.SERVICE}"
+    WERF_STAGES_STORAGE     = "xxx.amazonaws.com/${params.SERVICE}/stages"
+    WERF_IMAGES_REPO_IMPLEMENTATION = "ecr"
+    KUBECONFIG              = credentials('werf_kube_config')
+    WERF_SECRET_KEY         = credentials('werf_secret_key')
+    WERF_KUBE_CONTEXT       = "aws-production"
+    WERF_ENV                = "production"
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Deploy') {
+      steps {
+        script {
+          functions.runWerf("${params.TYPE}","${params.WERF_VERSION}")
+        }
+      }
+      when { anyOf { branch 'master'; } }
+    }
+  }
+}

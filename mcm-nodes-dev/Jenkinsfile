@@ -1,0 +1,41 @@
+@Library('jenkins-devops@dev')_
+
+properties([
+  parameters([
+    choice(      name: 'TYPE',              choices: ['converge', 'dismiss'],
+                                            defaultValue: 'converge',              description: 'TYPE of run Deploy or Dismis packages'),
+    string(      name: 'WERF_VERSION',      defaultValue: '1.2 stable',            description: 'Werf version'),
+  ])
+])
+
+
+pipeline {
+  agent { label 'research' }
+
+  environment {
+    WERF_IMAGES_REPO        = "cr.yandex/xxx/envoy"
+    WERF_STAGES_STORAGE     = "cr.yandex/xxx/envoy/stages"
+    WERF_SECRET_KEY         = credentials('werf_secret_key')
+    KUBECONFIG              = credentials('werf_kube_config')
+    WERF_KUBE_CONTEXT       = "dev"
+    WERF_ENV                = "dev"
+  }
+
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Deploy to dev') {
+      when { anyOf { branch 'master'; } }
+      steps {
+        script {
+          functions.runWerf("${params.TYPE}","${params.WERF_VERSION}")
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+---
+apiVersion: deckhouse.io/v1
+kind: NodeGroup
+metadata:
+  name: worker-m5-2xlarge
+spec:
+  cloudInstances:
+    classReference:
+      kind: AWSInstanceClass
+      name: worker-m5-2xlarge
+    maxPerZone: 20
+    minPerZone: 1
+    zones:
+    - eu-west-1a
+    - eu-west-1b
+    - eu-west-1c
+  disruptions:
+    approvalMode: Automatic
+  nodeType: CloudEphemeral
+---
+apiVersion: deckhouse.io/v1
+kind: NodeGroup
+metadata:
+  name: worker-m5a-2xlarge
+spec:
+  cloudInstances:
+    classReference:
+      kind: AWSInstanceClass
+      name: worker-m5a-2xlarge
+    maxPerZone: 20
+    minPerZone: 1
+    zones:
+    - eu-west-1a
+    - eu-west-1b
+    - eu-west-1c
+    standby: 1
+    standbyHolder:
+      notHeldResources:
+        cpu: 1000m
+        memory: 1500Mi
+  disruptions:
+    approvalMode: Automatic
+  nodeType: CloudEphemeral
+---
+apiVersion: deckhouse.io/v1
+kind: NodeGroup
+metadata:
+  name: worker-r5-xlarge
+spec:
+  cloudInstances:
+    classReference:
+      kind: AWSInstanceClass
+      name: worker-r5-xlarge
+    maxPerZone: 20
+    minPerZone: 1
+    zones:
+    - eu-west-1a
+    - eu-west-1b
+    - eu-west-1c
+  disruptions:
+    approvalMode: Automatic
+  nodeType: CloudEphemeral
+---
+apiVersion: deckhouse.io/v1
+kind: NodeGroup
+metadata:
+  name: worker-r5a-xlarge
+spec:
+  cloudInstances:
+    classReference:
+      kind: AWSInstanceClass
+      name: worker-r5a-xlarge
+    maxPerZone: 20
+    minPerZone: 1
+    zones:
+    - eu-west-1a
+    - eu-west-1b
+    - eu-west-1c
+    standby: 1
+    standbyHolder:
+      notHeldResources:
+        cpu: 1000m
+        memory: 1500Mi
+  disruptions:
+    approvalMode: Automatic
+  nodeType: CloudEphemeral

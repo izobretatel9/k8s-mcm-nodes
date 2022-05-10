@@ -1,0 +1,10 @@
+apiVersion: deckhouse.io/v1
+kind: AWSInstanceClass
+metadata:
+  name: system
+spec:
+  diskSizeGb: 30
+  diskType: gp3
+  instanceType: m5a.2xlarge
+  additionalSecurityGroups:
+  - sg-xxx

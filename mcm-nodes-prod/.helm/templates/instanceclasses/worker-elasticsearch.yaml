@@ -1,0 +1,10 @@
+apiVersion: deckhouse.io/v1alpha1
+kind: YandexInstanceClass
+metadata:
+  name: worker-elasticsearch
+spec:
+  cores: 4
+  diskSizeGB: 65
+  diskType: network-ssd
+  memory: 16384
+  platformID: standard-v3

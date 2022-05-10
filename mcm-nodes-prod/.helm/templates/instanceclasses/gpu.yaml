@@ -1,0 +1,12 @@
+apiVersion: deckhouse.io/v1alpha1
+kind: YandexInstanceClass
+metadata:
+  name: gpu
+spec:
+  cores: 32
+  diskSizeGB: 94
+  diskType: network-ssd
+  memory: 131072
+  platformID: standard-v3-t4
+  preemptible: true
+  gpus: 1

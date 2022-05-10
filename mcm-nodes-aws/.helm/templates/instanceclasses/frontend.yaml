@@ -1,0 +1,10 @@
+apiVersion: deckhouse.io/v1
+kind: AWSInstanceClass
+metadata:
+  name: frontend
+spec:
+  diskSizeGb: 30
+  diskType: gp3
+  instanceType: r5a.large
+  additionalSecurityGroups:
+  - sg-xxx

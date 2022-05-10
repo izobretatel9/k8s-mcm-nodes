@@ -1,0 +1,10 @@
+apiVersion: deckhouse.io/v1
+kind: AWSInstanceClass
+metadata:
+  name: elasticsearch
+spec:
+  diskSizeGb: 65
+  diskType: gp3
+  instanceType: m6a.xlarge
+  additionalSecurityGroups:
+  - sg-xxx

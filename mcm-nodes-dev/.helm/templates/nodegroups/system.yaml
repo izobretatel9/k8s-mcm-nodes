@@ -1,0 +1,25 @@
+apiVersion: deckhouse.io/v1alpha2
+kind: NodeGroup
+metadata:
+  name: system
+spec:
+  chaos:
+    mode: Disabled
+  cloudInstances:
+    classReference:
+      kind: YandexInstanceClass
+      name: system
+    maxPerZone: 4
+    minPerZone: 2
+    zones:
+    - ru-central1-c
+  disruptions:
+    approvalMode: Manual
+  nodeTemplate:
+    labels:
+      node-role.deckhouse.io/system: ""
+    taints:
+    - effect: NoExecute
+      key: dedicated.deckhouse.io
+      value: system
+  nodeType: Cloud
